@@ -7,6 +7,7 @@ public class RpcTest : NetworkBehaviour
     {
         if (IsClient)
         {
+            Debug.Log("Begin Client");
             TestServerRpc(0);
         }
     }
