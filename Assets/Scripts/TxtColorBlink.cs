@@ -5,7 +5,8 @@ using UnityEngine.UI; // This is so that it should find the Text component
 using UnityEngine.Events; // This is so that you can extend the pointer handlers
 using UnityEngine.EventSystems; // This is so that you can extend the pointer handlers
 using TMPro; // text mesh PRO
-
+using System.Security.Cryptography;
+using System.Collections.Specialized;
 
 public class TxtColorBlink : MonoBehaviour
 {
@@ -19,22 +20,25 @@ public class TxtColorBlink : MonoBehaviour
     TextMeshProUGUI infoText4;
     [SerializeField]
     TextMeshProUGUI infoText5;
-
-    // Start is called before the first frame update
+    [SerializeField]
+    float TempsSeconde;
 
     IEnumerator myCouroutine;
 
     void Start()
     {
-        myCouroutine = InfiniteLoop(0.05f);
+        myCouroutine = InfiniteLoop(TempsSeconde);
         StartCoroutine(myCouroutine);
+    }
+    void update() {
+        //transform.localScale = new Vector3(Random.Range(0.2f, 5.0f), 1, Random.Range(0.2f, 5.0f));
     }
 
     IEnumerator InfiniteLoop(float seconds)
     {
         while (true)
         {
-            
+
             yield return new WaitForSeconds(seconds);
             Debug.Log("Inside infiniteLoop");
             infoText1.color = new Color(0f, 0f, 0f, Random.Range(0.5f, 0.9f));
@@ -47,6 +51,6 @@ public class TxtColorBlink : MonoBehaviour
         }
     }
 
-    
+
 
 }
