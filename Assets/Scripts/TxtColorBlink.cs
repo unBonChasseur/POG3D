@@ -5,8 +5,10 @@ using UnityEngine.UI; // This is so that it should find the Text component
 using UnityEngine.Events; // This is so that you can extend the pointer handlers
 using UnityEngine.EventSystems; // This is so that you can extend the pointer handlers
 using TMPro; // text mesh PRO
-using System.Security.Cryptography;
-using System.Collections.Specialized;
+//using System;
+//using System.Security.Cryptography;
+//using System.Collections.Specialized;
+//using System;
 
 public class TxtColorBlink : MonoBehaviour
 {
@@ -40,10 +42,12 @@ public class TxtColorBlink : MonoBehaviour
         {
 
             yield return new WaitForSeconds(seconds);
-            Debug.Log("Inside infiniteLoop");
+            //Debug.Log("Inside infiniteLoop");
             infoText1.color = new Color(0f, 0f, 0f, Random.Range(0.5f, 0.9f));
             infoText2.color = new Color(0f, 0f, 0f, Random.Range(0.5f, 0.9f));
             infoText3.color = new Color(1f, 0f, 0.5f, Random.Range(0.5f, 0.9f));
+            infoText3.fontSize = Random.Range(20f, 40f);
+            //infoText3.fontSize = Random.Range(20f, 90f);
             infoText4.color = new Color(0f, 0f, 0f, Random.Range(0.5f, 0.9f));
             infoText5.color = new Color(0f, 0f, 0f, Random.Range(0.5f, 0.9f));
             //infoText.color = new Color(1f, 1f, 1f, 0.7f);
