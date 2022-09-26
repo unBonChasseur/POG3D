@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class Balle : MonoBehaviour
+public class Balle : NetworkBehaviour
 {
     // Start is called before the first frame update
     [SerializeField]
@@ -19,144 +20,137 @@ public class Balle : MonoBehaviour
     private GameObject m_objCamera;
     private Camera m_mainCamera;
 
-    //private Rigidbody m_rigidbody;
-    private bool hit;
-    private float accelTimer;
+    private Vector3 m_direction;
 
-    private Vector3 direction;
-
+    public NetworkVariable<Vector3> Position = new NetworkVariable<Vector3>();
 
 
     void Start()
     {
         m_objCamera = GameObject.FindGameObjectWithTag("MainCamera");
         m_mainCamera = m_objCamera.GetComponent<Camera>();
-       // m_rigidbody = gameObject.GetComponent<Rigidbody>();
-
-        Invoke("LaunchBall", 2);
-        accelTimer = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        /*if(hit)
+        if (IsHost)
         {
-            accelTimer += Time.deltaTime;
-            //Debug.Log(accelTimer);
-            gameObject.transform.Translate(direction * Mathf.Lerp(m_movementSpeed * 2, m_movementSpeed, accelTimer ) * Time.deltaTime);
-        }
-        if (hit && accelTimer >= 2)
-        {
-            //Debug.LogError("ok");
-            hit = false;
-            accelTimer = 0;
+            gameObject.transform.Translate(m_direction.normalized * m_movementSpeed * Time.deltaTime);
+            Position.Value = transform.position;
         }
         else
         {
-           
-        }*/
-        gameObject.transform.Translate(direction * (m_movementSpeed) * Time.deltaTime);
+            SubmitPositionRequestServerRpc(transform.position);
+        }
+    }
+
+    [ServerRpc]
+    void SubmitPositionRequestServerRpc(Vector3 p_vector)
+    {
+        Position.Value = p_vector;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-       
         if (collision.collider.CompareTag("Player"))
         {
             ContactPoint contact = collision.contacts[0];
-            Vector3 reflectedDirection = Vector3.Reflect(direction, contact.normal);
-            int sens = collision.collider.GetComponent<Player>().getVelocity();
+            Vector3 reflectedDirection = Vector3.Reflect(m_direction, contact.normal);
+            int sens = collision.collider.GetComponent<PlayerMovement>().getVelocity();
             if (sens == 1)
             {
-                if (direction.z < 0)
+                if (m_direction.z < 0)
                 {
                     int straight = Random.Range(1, 5);
-                    direction = reflectedDirection;
+                    m_direction = reflectedDirection;
                     if (straight == 1)
-                        direction.z = 0;
+                        m_direction.z = 0;
                     else
                     {
-                        direction.z = direction.z / Random.Range(1.0f, 2.0f);
-                        direction.z = Mathf.Clamp(direction.z, m_minAngle_z, m_maxAngle_z);
+                        m_direction.z = m_direction.z / Random.Range(1.0f, 2.0f);
+                        m_direction.z = Mathf.Clamp(m_direction.z, m_minAngle_z, m_maxAngle_z);
                     }
                 }
-                else if (direction.z > 0)
+                else if (m_direction.z > 0)
                 {
-                    direction = reflectedDirection;
-                    direction.z = direction.z * Random.Range(1.0f, 10.0f);
-                    direction.z = Mathf.Clamp(direction.z, m_minAngle_z, m_maxAngle_z);
+                    m_direction = reflectedDirection;
+                    m_direction.z = m_direction.z * Random.Range(1.0f, 10.0f);
+                    m_direction.z = Mathf.Clamp(m_direction.z, m_minAngle_z, m_maxAngle_z);
                 }
-                else if (direction.z == 0)
+                else if (m_direction.z == 0)
                 {
-                    direction = new Vector3(sign(reflectedDirection.x)* 1 , 0, randomSign() * Random.Range(0.0f,1.0f));
+                    m_direction = new Vector3(sign(reflectedDirection.x)* 1 , 0, randomSign() * Random.Range(0.0f,1.0f));
                 }
                 else
                 {
-                    direction = reflectedDirection;
+                    m_direction = reflectedDirection;
                 }
             }
             else if (sens == -1)
             {
-                if(direction.z > 0)
+                if(m_direction.z > 0)
                 {
                     //Debug.Log("Mult");
-                    direction = reflectedDirection;
-                    direction.z = direction.z * Random.Range(1.0f, 10.0f);
-                    direction.z = Mathf.Clamp(direction.z, m_minAngle_z, m_maxAngle_z);
+                    m_direction = reflectedDirection;
+                    m_direction.z = m_direction.z * Random.Range(1.0f, 10.0f);
+                    m_direction.z = Mathf.Clamp(m_direction.z, m_minAngle_z, m_maxAngle_z);
                 }
-                else if(direction.z < 0)
+                else if(m_direction.z < 0)
                 {
                     int straight = Random.Range(1, 5);
-                    direction = reflectedDirection;
+                    m_direction = reflectedDirection;
                     if (straight == 1)
-                        direction.z = 0;
+                        m_direction.z = 0;
                     else
                     {
-                        direction.z = direction.z / Random.Range(1.0f, 2.0f);
-                        direction.z = Mathf.Clamp(direction.z, m_minAngle_z, m_maxAngle_z);
+                        m_direction.z = m_direction.z / Random.Range(1.0f, 2.0f);
+                        m_direction.z = Mathf.Clamp(m_direction.z, m_minAngle_z, m_maxAngle_z);
                     }
                     
                 }
-                else if(direction.z == 0)
+                else if(m_direction.z == 0)
                 {
-                    direction = new Vector3(sign(reflectedDirection.x) * 1, 0, randomSign() *  Random.Range(0.0f, 1.0f));
+                    m_direction = new Vector3(sign(reflectedDirection.x) * 1, 0, randomSign() *  Random.Range(0.0f, 1.0f));
                 }
                 else
                 {
-                    direction = reflectedDirection;
+                    m_direction = reflectedDirection;
                 }
             }
             else
             {
 
-                Debug.Log($"1: {direction}");
-                if (direction.z != 0.0f)
-                    direction = reflectedDirection;
+                Debug.Log($"1: {m_direction}");
+                if (m_direction.z != 0.0f)
+                    m_direction = reflectedDirection;
                 else
                 {
-                    direction = new Vector3(sign(reflectedDirection.x) * 1, 0, randomSign() * Random.Range(0.0f, 1.0f));
+                    m_direction = new Vector3(sign(reflectedDirection.x) * 1, 0, randomSign() * Random.Range(0.0f, 1.0f));
                 }
                   
 
-                Debug.Log($"2: {direction}");
+                Debug.Log($"2: {m_direction}");
             }
-            
-            hit = true; 
         }
 
         if (collision.collider.CompareTag("Wall"))
         {
             ContactPoint contact = collision.contacts[0];
-            Vector3 reflectedDirection = Vector3.Reflect(direction, contact.normal);
-            direction = reflectedDirection;
+            Vector3 reflectedDirection = Vector3.Reflect(m_direction, contact.normal);
+            m_direction = reflectedDirection;
         }
  
     }
 
+    public void InvokeBall(float p_time)
+    {
+        Invoke("LaunchBall", p_time);
+    }
+
     public void LaunchBall()
     {
-        direction = new Vector3(-1,0,-1); 
+        m_direction = new Vector3(randomSign(), 0, randomSign());
     }
 
     private int sign(float value)
@@ -170,7 +164,7 @@ public class Balle : MonoBehaviour
 
     private int randomSign()
     {
-        int rand = Random.Range(0, 1);
+        int rand = Random.Range(0, 2);
         if (rand == 0)
             return -1;
         return 1;

@@ -8,6 +8,8 @@ TagManager:
   - InGameUI
   - AfterGameUI
   - Wall
+  - CreateGame
+  - Ball
   layers:
   - Default
   - TransparentFX
