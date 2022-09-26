@@ -5,27 +5,34 @@ namespace HelloWorld
 {
     public class HelloWorldPlayer : NetworkBehaviour
     {
+        
         public NetworkVariable<Vector3> Position = new NetworkVariable<Vector3>();
 
         public override void OnNetworkSpawn()
         {
             if (IsOwner)
             {
-                Move();
+                Position.Value = new Vector3(-16.45f, 0, 0);
+                //Move();
             }
+            else
+            {
+                Position.Value = new Vector3(16.45f, 0, 0);
+            }
+
         }
 
         public void Move()
         {
             if (NetworkManager.Singleton.IsServer)
             {
-                var randomPosition = GetRandomPositionOnPlane();
-                transform.position = randomPosition;
-                Position.Value = randomPosition;
+                Debug.Log("serveur position changed");
+                //Position.Value = new Vector3(-16.45f, 0, 0);
             }
             else
             {
-                SubmitPositionRequestServerRpc();
+                Debug.Log("client position changed");
+                //SubmitPositionRequestServerRpc();
             }
         }
 

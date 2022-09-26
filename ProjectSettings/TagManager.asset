@@ -7,6 +7,7 @@ TagManager:
   - MenuUI
   - InGameUI
   - AfterGameUI
+  - Wall
   layers:
   - Default
   - TransparentFX

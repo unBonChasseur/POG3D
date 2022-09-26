@@ -17,7 +17,7 @@ namespace HelloWorld
             }
             else
             {
-                StatusLabels();
+                //StatusLabels();
 
                 SubmitNewPosition();
             }
@@ -39,7 +39,8 @@ namespace HelloWorld
         
         public void StartClientButton()
         {
-            NetworkManager.Singleton.StartClient();
+            if(NetworkManager.Singleton.ConnectedClientsList.Count.Equals(2))
+                NetworkManager.Singleton.StartClient();
         }
 
         static void StatusLabels()
@@ -56,7 +57,7 @@ namespace HelloWorld
             {
                 if (NetworkManager.Singleton.IsServer && !NetworkManager.Singleton.IsClient)
                 {
-                    foreach (ulong uid in NetworkManager.Singleton.ConnectedClientsIds) 
+                    foreach (ulong uid in NetworkManager.Singleton.ConnectedClientsIds)
                         NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(uid).GetComponent<HelloWorldPlayer>().Move();
                 }
                 else
