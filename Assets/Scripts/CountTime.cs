@@ -11,8 +11,6 @@ using TMPro; // text mesh PRO
 public class CountTime : MonoBehaviour
 {
     [SerializeField]
-    int Countdown;
-    [SerializeField]
     TextMeshProUGUI TxtCountdown;
     [SerializeField] 
     AudioSource sonStart;
@@ -21,68 +19,37 @@ public class CountTime : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Countdown = 10;
-        myCouroutine = InfiniteLoop(1f);
-        startCoundown();
+        myCouroutine = Countdown(1);
         sonStart = GetComponent<AudioSource>();
         sonStart.volume = 0.3f;
         sonStart.Play();
 
-
-
+        //startCoundown();
     }
-    IEnumerator InfiniteLoop(float seconds)
+    IEnumerator Countdown(int seconds)
     {
-        while (true)
+        while (seconds >= 0)
         {
-            if (Countdown > 0)
+            if (seconds > 0)
             {
-                Countdown = Countdown - 1;
-                TxtCountdown.text = Countdown.ToString();
-                sonStart = GetComponent<AudioSource>();
-                sonStart.volume = 0.3f;
+                seconds--;
+                TxtCountdown.text = seconds.ToString();
                 sonStart.Play();
             }
-            else if(Countdown == 0)
+            else if(seconds == 0)
             {
-                // play audio
-                // stop coroutine
-                sonStart = GetComponent<AudioSource>();
                 sonStart.volume = 1f;
                 sonStart.Play();
 
                 TxtCountdown.text = "";
-                StopCoroutine(myCouroutine);
             }
 
-            
-            yield return new WaitForSeconds(seconds);
-            //Debug.Log("Inside infiniteLoop");
-            //Debug.Log("Lancement dans :");
-            //print(compte);
-            //infoText1.color = new Color(0f, 0f, 0f, Random.Range(0.5f, 0.9f));
-            
-            
-
+            yield return new WaitForSeconds(1);
         }
     }
-    
-    int getCountdown() {
-        return Countdown;
-    }
+
     void startCoundown() {
         StartCoroutine(myCouroutine);
     }
-    void resetCoundown() {
-        StopCoroutine(myCouroutine);
-        Countdown = 10;
 
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
