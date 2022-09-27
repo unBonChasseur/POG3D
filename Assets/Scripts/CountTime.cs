@@ -12,18 +12,12 @@ public class CountTime : MonoBehaviour
 {
     [SerializeField]
     TextMeshProUGUI TxtCountdown;
-    [SerializeField] 
-    AudioSource sonStart;
-
+   
     IEnumerator myCouroutine;
     // Start is called before the first frame update
     void Start()
     {
         myCouroutine = Countdown(1);
-        sonStart = GetComponent<AudioSource>();
-        sonStart.volume = 0.3f;
-        sonStart.Play();
-
         //startCoundown();
     }
     IEnumerator Countdown(int seconds)
@@ -34,13 +28,9 @@ public class CountTime : MonoBehaviour
             {
                 seconds--;
                 TxtCountdown.text = seconds.ToString();
-                sonStart.Play();
             }
             else if(seconds == 0)
             {
-                sonStart.volume = 1f;
-                sonStart.Play();
-
                 TxtCountdown.text = "";
             }
 

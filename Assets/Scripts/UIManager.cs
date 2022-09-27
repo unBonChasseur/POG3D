@@ -18,7 +18,7 @@ public class UIManager : MonoBehaviour
         m_menuUI = GameObject.FindGameObjectWithTag("MenuUI");
         m_inGameUI = GameObject.FindGameObjectWithTag("InGameUI");
         m_afterGameUI = GameObject.FindGameObjectWithTag("AfterGameUI");
-
+        
         ShowMenuUI();
     }
 

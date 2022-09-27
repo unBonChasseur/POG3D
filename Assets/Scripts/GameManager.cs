@@ -16,8 +16,7 @@ public class GameManager : NetworkBehaviour
     [SerializeField]
     TextMeshProUGUI TxtCountdown;
 
-    [SerializeField]
-    AudioSource sonStart;
+    
 
 
     // Start is called before the first frame update
@@ -25,9 +24,7 @@ public class GameManager : NetworkBehaviour
     {
         m_hasBegin = false;
         m_mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-        sonStart = GetComponent<AudioSource>();
-        sonStart.volume = 0.3f;
-        sonStart.Play();
+        
     }
 
     // Update is called once per frame
@@ -73,12 +70,11 @@ public class GameManager : NetworkBehaviour
             {
                 seconds--;
                 TxtCountdown.text = seconds.ToString();
-                sonStart.Play();
+                
             }
             else if (seconds == 0)
             {
-                sonStart.volume = 1f;
-                sonStart.Play();
+                
 
                 TxtCountdown.text = "";
             }
