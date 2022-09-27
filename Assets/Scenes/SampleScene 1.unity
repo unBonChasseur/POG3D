@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
+  m_IndirectSpecularColor: {r: 0.172768, g: 0.21589169, b: 0.29782546, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -797,6 +797,87 @@ MonoBehaviour:
   intensity: 0.148
   flipIntensity: 0.072
   colorIntensity: 0.202
+--- !u!1 &1355991767
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1355991769}
+  - component: {fileID: 1355991768}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1355991768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1355991767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60d75e9fbd4842245a74c706a5093122, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: mainTheme
+    clip: {fileID: 8300000, guid: 08b9173c4717b5a43959700106c70112, type: 3}
+    volume: 0.053
+    pitch: 0
+    loop: 1
+    source: {fileID: 0}
+  - name: Pong1
+    clip: {fileID: 8300000, guid: 7efc88c776658e645936c44641cfe066, type: 3}
+    volume: 1
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: Pong2
+    clip: {fileID: 8300000, guid: 72ac01f07e76b564bbeff4024dbfbd68, type: 3}
+    volume: 1
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: Pong3
+    clip: {fileID: 8300000, guid: ca3eb86b570cdad468833dc6c6f3aa94, type: 3}
+    volume: 1
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: PongFin
+    clip: {fileID: 8300000, guid: 2243677816f8a4b4c983e7d0eef2399d, type: 3}
+    volume: 1
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: PongStart
+    clip: {fileID: 8300000, guid: 4ed031a4c48c86541881c7347c1640f2, type: 3}
+    volume: 1
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+--- !u!4 &1355991769
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1355991767}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.4729214, y: 7.30582, z: -0.9410999}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1455812503
 GameObject:
   m_ObjectHideFlags: 0

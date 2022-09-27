@@ -65,6 +65,7 @@ public class Balle : NetworkBehaviour
     {
         if (collision.collider.CompareTag("Player"))
         {
+            FindObjectOfType<AudioManager>().Play("Pong1");
             ContactPoint contact = collision.contacts[0];
             Vector3 reflectedDirection = Vector3.Reflect(m_direction, contact.normal);
             int sens = collision.collider.GetComponent<PlayerMovement>().getVelocity();
