@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 6728413706830870092}
   - component: {fileID: 6728413706830870083}
   - component: {fileID: 6728413706830870082}
-  - component: {fileID: 6728413706830870081}
   - component: {fileID: 6590763645002888064}
+  - component: {fileID: 6728413706830870081}
+  - component: {fileID: 5982411303575429564}
   m_Layer: 0
   m_Name: Balle
   m_TagString: Ball
@@ -99,22 +100,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6728413706830870081
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6728413706830870080}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 733190a396cafec4c9034326d3445462, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_movementSpeed: 15
-  m_accelOnHit: 0
-  m_maxAngle_z: 1
-  m_minAngle_z: -1
 --- !u!54 &6590763645002888064
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -131,3 +116,37 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &6728413706830870081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6728413706830870080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 733190a396cafec4c9034326d3445462, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_movementSpeed: 15
+  m_accelOnHit: 0
+  m_maxAngle_z: 1
+  m_minAngle_z: -1
+  Position:
+    m_InternalValue: {x: 0, y: 0, z: 0}
+--- !u!114 &5982411303575429564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6728413706830870080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1

@@ -34,15 +34,25 @@ public class Balle : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (IsHost)
+        if (IsOwner)
         {
-            gameObject.transform.Translate(m_direction.normalized * m_movementSpeed * Time.deltaTime);
-            Position.Value = transform.position;
+            transform.Translate(m_direction.normalized * m_movementSpeed * Time.deltaTime);
+
+            if (IsServer)
+            {
+                Position.Value = transform.position;
+            }
+            else
+            {
+                SubmitPositionRequestServerRpc(transform.position);
+            }
+
         }
         else
         {
-            SubmitPositionRequestServerRpc(transform.position);
+            transform.position = Position.Value;
         }
+
     }
 
     [ServerRpc]
