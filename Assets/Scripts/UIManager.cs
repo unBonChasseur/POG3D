@@ -34,6 +34,7 @@ public class UIManager : MonoBehaviour
         m_menuUI.SetActive(false);
         m_inGameUI.SetActive(true);
         m_afterGameUI.SetActive(false);
+        Debug.Log("UI");
     }
 
 
@@ -42,6 +43,11 @@ public class UIManager : MonoBehaviour
         m_menuUI.SetActive(false);
         m_inGameUI.SetActive(false);
         m_afterGameUI.SetActive(true);
+    }
+
+    public bool IsAfterGameDisplayed()
+    {
+        return m_afterGameUI.activeSelf;
     }
 
     public void ExitGame()

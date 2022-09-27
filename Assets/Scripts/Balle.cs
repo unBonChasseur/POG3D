@@ -41,8 +41,6 @@ public class Balle : NetworkBehaviour
 
             if (IsServer)
             {
-                //Vector3 posOnScreen = m_mainCamera.WorldToScreenPoint(transform.position);
-                //if(posOnScreen.x > Screen.width)
                 Position.Value = transform.position;
             }
             else
