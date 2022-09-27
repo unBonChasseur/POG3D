@@ -16,10 +16,7 @@ public class GameManager : NetworkBehaviour
     [SerializeField]
     TextMeshProUGUI TxtCountdown;
 
-    
 
-
-    // Start is called before the first frame update
     void Start()
     {
         m_hasBegin = false;
@@ -27,7 +24,6 @@ public class GameManager : NetworkBehaviour
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         GameObject ball = GameObject.FindGameObjectWithTag("Ball");
@@ -74,8 +70,6 @@ public class GameManager : NetworkBehaviour
             }
             else if (seconds == 0)
             {
-                
-
                 TxtCountdown.text = "";
             }
 

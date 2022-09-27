@@ -4,42 +4,33 @@ using UnityEngine;
 using TMPro;
 using Unity.Netcode;
 
-public class scoring : MonoBehaviour
+public class scoring : NetworkBehaviour
 {
     [SerializeField]
+    private GameObject m_ScoreManager;
+
+    [SerializeField]
     private string side;
-
-    [SerializeField]
-    private TextMeshProUGUI txt_scorePlayer1;
-
-    private int scorePlayer1;
-    [SerializeField]
-    private TextMeshProUGUI txt_scorePlayer2;
-
-    private int scorePlayer2;
-
-    private void Start()
-    {
-        scorePlayer1 = scorePlayer2 = 0;
-    }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.CompareTag("Ball"))
         {
-            if (side == "Right")
+            if (IsServer)
             {
-                scorePlayer1++;
-                txt_scorePlayer1.text = scorePlayer1.ToString();
+                if (side == "Right")
+                {
+                    m_ScoreManager.GetComponent<ScoreManager>().OnWallRightHit();
+                }
+                else if (side == "Left")
+                {
+                    m_ScoreManager.GetComponent<ScoreManager>().OnWallLeftHit();
+                }
+
+                //Destroy ball  
+                collision.collider.GetComponent<NetworkObject>().Despawn();
+                Destroy(collision.collider);
             }
-            else if (side == "Left")
-            {
-                scorePlayer2++;
-                txt_scorePlayer2.text = scorePlayer2.ToString();
-            }
-            //Destroy ball 
-            collision.collider.GetComponent<NetworkObject>().Despawn();
-            Destroy(collision.collider);
         }
     }
 }
